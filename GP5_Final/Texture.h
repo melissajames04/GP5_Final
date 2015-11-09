@@ -38,6 +38,7 @@ public:
 	void SetColor(const Uint8 R, const Uint8 G, const Uint8, const Uint8 A);
 	int GetWidth() const;
 	int GetHeight() const;
+	SDL_Texture* GetTexture() const;
 
 private:
 	//a handle to the asset

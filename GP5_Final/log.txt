@@ -1,0 +1,2 @@
+INFO:Loaded texture ball.bmp (c:\users\melissa james\documents\game programming\game programming 5\gp5_final\gp5_final\texture.cpp:31(
+INFO:Hello from the destructor (c:\users\melissa james\documents\game programming\game programming 5\gp5_final\gp5_final\gamescenemanager.cpp:22(

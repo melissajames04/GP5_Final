@@ -6,6 +6,7 @@
 #include <thread>
 
 
+
 GameObject* ball;
 
 std::unique_ptr<GameSceneManager> GameSceneManager::instance(nullptr);
@@ -33,7 +34,7 @@ void GameSceneManager::Run(){
 	timer.Start();
 	Debug::Initialize();
 	ball = new GameObject();
-	ball->loadImage("ball.bmp");
+	ball->loadImage(window.GetRenderer(), "ball.bmp");
 	//std::thread eventPoll(Update, 10);
 	while (isRunning){
 		timer.UpdateFrameTicks();
@@ -76,7 +77,8 @@ void GameSceneManager::Update(const float deltaTime){
 void GameSceneManager::Render(){
 	SDL_RenderClear(window.GetRenderer());
 	SDL_FreeSurface(window.getSurface());
-	SDL_RenderCopy(window.GetRenderer(), ball->render(window.GetRenderer(), window.getSurface()), NULL, &ball->pos);
+	//SDL_RenderCopy(window.GetRenderer(), ball->render(window.GetRenderer(), window.getSurface()), NULL, &ball->pos);
+	ball->render();
 	SDL_RenderPresent(window.GetRenderer());
 }
 
