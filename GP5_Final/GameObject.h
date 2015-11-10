@@ -2,6 +2,7 @@
 #include <SDL/SDL.h>
 #include <string>
 #include "Texture.h"
+#include "AssetManager.h"
 class GameObject
 {
 public:
@@ -13,7 +14,8 @@ public:
 	void loadImage(SDL_Renderer* renderer, const std::string& imageName);
 	SDL_Texture* render(SDL_Renderer* renderer);
 	Texture* objTexture;
-	SDL_Point* GameObject::GetOrigin(bool center);
+	AssetManager* asset;
+	SDL_Point* GetOrigin(bool center);
 	void render2(SDL_Renderer* renderer, SDL_Surface* surface);
 private:
 	SDL_Point* origin;

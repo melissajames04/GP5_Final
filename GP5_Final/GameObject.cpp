@@ -13,15 +13,10 @@ GameObject::~GameObject(){
 	//loadedImage = NULL;
 }
 
-void GameObject::loadImage(SDL_Renderer* renderer, const std::string& imageName){
-	//loadedImage = SDL_LoadBMP(imageName.c_str());
-	objTexture = new Texture(renderer);
-	objTexture->Load(imageName.c_str());
-	objTexture->SetTexture(*objTexture->GetTexture(), pos.w, pos.h);
-	objTexture->SetAlpha(1);
-	objTexture->SetColor(255, 255, 255, 1);
-	objTexture->SetBlendMode(SDL_BLENDMODE_NONE);
-	loadedImage = IMG_Load(imageName.c_str());
+void GameObject::loadImage(SDL_Renderer* renderer,const std::string& imageName){
+	
+	asset = new AssetManager();
+	asset->LoadAsset(renderer, imageName.c_str());
 }
 
 SDL_Texture* GameObject::render(SDL_Renderer* renderer){
@@ -33,10 +28,8 @@ SDL_Texture* GameObject::render(SDL_Renderer* renderer){
 	return (SDL_CreateTextureFromSurface(renderer, loadedImage));
 }
 
-void GameObject::render2(SDL_Renderer* renderer, SDL_Surface* surface){
-	objTexture->SetCurrentRenderer(renderer);
-	objTexture->SetCurrentSurface(surface);
-	objTexture->Draw(pos.x, pos.y, 1.0f, &pos,0.0, GetOrigin(true), SDL_FLIP_NONE);
+void GameObject::render2(SDL_Renderer* renderer, SDL_Surface* surface){	
+	asset->Draw(pos.x, pos.y, 1.0f, &pos, 0.0, true, SDL_FLIP_NONE);
 }
 
 SDL_Point* GameObject::GetOrigin(bool center){

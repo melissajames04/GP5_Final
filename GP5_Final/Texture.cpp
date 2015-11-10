@@ -19,7 +19,7 @@ bool Texture::Load(const std::string& FileName){
 		Debug::Log(EMessageType::ERROR, "Failed to load" + FileName + "! SDL Error: " + SDL_GetError(), __FILE__, __LINE__);
 	}
 	else{
-		/*SetCurrentSurface(LoadedSurface);
+		SetCurrentSurface(LoadedSurface);
 		if (SDL_SetColorKey(LoadedSurface, SDL_TRUE, SDL_MapRGB(LoadedSurface->format, 0, 0xFF, 0xFF)) < 0){
 			Debug::Log(EMessageType::WARNING, "Failed to set color key for " + FileName + ". SDL Error: " + SDL_GetError(), __FILE__, __LINE__);
 		}
@@ -31,7 +31,7 @@ bool Texture::Load(const std::string& FileName){
 			Width = LoadedSurface->w;
 			Height = LoadedSurface->h;
 			Debug::Log(EMessageType::INFO, "Loaded texture " + FileName, __FILE__, __LINE__);
-		}*/
+		}
 		//SDL_FreeSurface(LoadedSurface);
 		//LoadedSurface = nullptr;
 	}
@@ -67,7 +67,7 @@ void Texture::Draw(const DrawParams& Params) const{
 	DrawRect.w = DrawRect.h = 204;
 	//SDL_RenderCopyEx(window.GetRenderer(), ball->render(window.GetRenderer()), NULL, &ball->pos, 0.0f, new SDL_Point{ 0.0f, 0.0f }, SDL_FLIP_NONE);
 	//SDL_RenderCopyEx(SDLRenderer, SDL_CreateTextureFromSurface(SDLRenderer, SDLSurface), Params.Clip, &DrawRect, Params.Angle, Params.Center, Params.Flip);
-	SDL_RenderCopyEx(SDLRenderer, SDL_CreateTextureFromSurface(SDLRenderer, SDLSurface), NULL, &DrawRect, 0.0f, new SDL_Point{ 0.0f, 0.0f }, SDL_FLIP_NONE);
+	SDL_RenderCopyEx(SDLRenderer, SDLTexture, NULL, &DrawRect, 0.0f, new SDL_Point{ 0.0f, 0.0f }, SDL_FLIP_NONE);
 	//DrawRect.x = DrawRect.y = 100;
 	//DrawRect.w = DrawRect.h = 204;
 	//SDL_RenderCopy(SDLRenderer, SDL_CreateTextureFromSurface(SDLRenderer, LoadedSurface), NULL, &DrawRect);
