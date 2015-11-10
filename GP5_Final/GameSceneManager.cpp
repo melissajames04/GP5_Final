@@ -34,7 +34,7 @@ void GameSceneManager::Run(){
 	timer.Start();
 	Debug::Initialize();
 	ball = new GameObject();
-	ball->loadImage(window.GetRenderer(), "ball.bmp");
+	ball->loadImage(window.GetRenderer(), "boy.png");
 	//std::thread eventPoll(Update, 10);
 	while (isRunning){
 		timer.UpdateFrameTicks();
@@ -77,8 +77,9 @@ void GameSceneManager::Update(const float deltaTime){
 void GameSceneManager::Render(){
 	SDL_RenderClear(window.GetRenderer());
 	SDL_FreeSurface(window.getSurface());
-	//SDL_RenderCopy(window.GetRenderer(), ball->render(window.GetRenderer(), window.getSurface()), NULL, &ball->pos);
-	ball->render();
+	//SDL_RenderCopy(window.GetRenderer(), ball->render(window.GetRenderer()), NULL, &ball->pos);
+	//SDL_RenderCopyEx(window.GetRenderer(), ball->render(window.GetRenderer()), NULL, &ball->pos, 0.0f, new SDL_Point{ 0.0f, 0.0f }, SDL_FLIP_NONE);
+ball->render2(window.GetRenderer(), window.getSurface());
 	SDL_RenderPresent(window.GetRenderer());
 }
 

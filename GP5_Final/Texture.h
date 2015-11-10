@@ -39,12 +39,17 @@ public:
 	int GetWidth() const;
 	int GetHeight() const;
 	SDL_Texture* GetTexture() const;
+	void Texture::SetCurrentRenderer(SDL_Renderer* _SDLRenderer);
+	void Texture::SetCurrentSurface(SDL_Surface* _SDLSurface);
 
 private:
 	//a handle to the asset
 	SDL_Texture* SDLTexture;
 	SDL_Renderer* SDLRenderer;
+	SDL_Surface* LoadedSurface;
+	SDL_Surface* SDLSurface;
 	int Width, Height;
+
 };
 
 #endif
