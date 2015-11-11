@@ -34,7 +34,8 @@ void GameSceneManager::Run(){
 	timer.Start();
 	Debug::Initialize();
 	ball = new GameObject();
-	ball->loadImage(window.GetRenderer(),"boy.png");
+	SDL_SetRenderDrawBlendMode(window.GetRenderer(), SDL_BLENDMODE_BLEND);
+	ball->loadImage(window.GetRenderer(),"guy_walk_spritesheet.png");
 	//std::thread eventPoll(Update, 10);
 	while (isRunning){
 		timer.UpdateFrameTicks();
@@ -77,9 +78,7 @@ void GameSceneManager::Update(const float deltaTime){
 void GameSceneManager::Render(){
 	SDL_RenderClear(window.GetRenderer());
 	SDL_FreeSurface(window.getSurface());
-	//SDL_RenderCopy(window.GetRenderer(), ball->render(window.GetRenderer()), NULL, &ball->pos);
-	//SDL_RenderCopyEx(window.GetRenderer(), ball->render(window.GetRenderer()), NULL, &ball->pos, 0.0f, new SDL_Point{ 0.0f, 0.0f }, SDL_FLIP_NONE);
-	ball->render2(window.GetRenderer(), window.getSurface());
+	ball->Animate(testmove, window.GetHeight() - 100, 1.0f, NULL, 0.0f, true, SDL_FLIP_NONE, 8, 0);
 	SDL_RenderPresent(window.GetRenderer());
 }
 
@@ -91,6 +90,9 @@ void GameSceneManager::InputManager(SDL_Event keyEvent){
 		delete ball;
 		SDL_Quit();
 		exit(0);
+		break;
+	case SDLK_RIGHT:
+		testmove+=10;
 		break;
 	default:
 		break;

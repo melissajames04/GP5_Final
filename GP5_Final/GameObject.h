@@ -12,12 +12,15 @@ public:
 	SDL_Surface* loadedImage;
 	SDL_Rect pos;
 	void loadImage(SDL_Renderer* renderer, const std::string& imageName);
-	SDL_Texture* render(SDL_Renderer* renderer);
 	Texture* objTexture;
 	AssetManager* asset;
 	SDL_Point* GetOrigin(bool center);
-	void render2(SDL_Renderer* renderer, SDL_Surface* surface);
+	void Draw(int x, int y, float scale, SDL_Rect* Clip, double Angle, bool Center, SDL_RendererFlip Flip);
+	void Animate(int x, int y, float scale, SDL_Rect* Clip, double Angle, bool Center, SDL_RendererFlip Flip,  int frameCount, int margin);
+
 private:
 	SDL_Point* origin;
+	void SetRect();
+	bool anim;
 };
 

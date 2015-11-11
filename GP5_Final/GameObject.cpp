@@ -3,9 +3,9 @@
 #include "Texture.h"
 #include "SDL_image.h"
 
-GameObject::GameObject(){
-	pos.x = pos.y = 100;
-	pos.w = pos.h = 204;
+GameObject::GameObject(): anim(false){
+	//pos.x = pos.y = 100;
+	//pos.w = pos.h = 204;
 }
 
 GameObject::~GameObject(){
@@ -14,24 +14,28 @@ GameObject::~GameObject(){
 }
 
 void GameObject::loadImage(SDL_Renderer* renderer,const std::string& imageName){
-	
 	asset = new AssetManager();
 	asset->LoadAsset(renderer, imageName.c_str());
+	asset->SetBlendMode(SDL_BLENDMODE_BLEND);
+	//SetRect();
 }
 
-SDL_Texture* GameObject::render(SDL_Renderer* renderer){
-	//SDL_SetColorKey(loadedImage, SDL_TRUE, SDL_MapRGB(surface->format, 0, 0, 0));
-	//loadTX = SDL_CreateTextureFromSurface(renderer, loadedImage);
-	printf("drawing");
-	//{ x, y, scale, Clip, Angle, Center, Flip }
-	//objTexture->Draw(pos.x, pos.y, 1.0f, &pos, 0.0, new SDL_Point{ pos.w/2, pos.x/2}, SDL_FLIP_NONE);
-	return (SDL_CreateTextureFromSurface(renderer, loadedImage));
+
+void GameObject::SetRect(){
+	pos.x = pos.y = 100;
+	pos.w = asset->GetWidth();
+	pos.h = asset->GetHeight();
+}
+void GameObject::Draw(int x, int y, float scale, SDL_Rect* Clip, double Angle, bool Center, SDL_RendererFlip Flip){	
+	pos = { x, y, asset->GetWidth(), asset->GetHeight() };
+	asset->Draw(pos.x, pos.y, scale, &pos, Angle, Center, Flip);
 }
 
-void GameObject::render2(SDL_Renderer* renderer, SDL_Surface* surface){	
-	asset->Draw(pos.x, pos.y, 1.0f, &pos, 0.0, true, SDL_FLIP_NONE);
+void GameObject::Animate(int x, int y, float scale, SDL_Rect* Clip, double Angle, bool Center, SDL_RendererFlip Flip, int frameCount, int margin){
+	anim = true;
+	pos = { x, y, asset->GetWidth(), asset->GetHeight() };
+	asset->Animate(pos.x, pos.y, scale, &pos, Angle, Center, Flip, frameCount, margin );
 }
-
 SDL_Point* GameObject::GetOrigin(bool center){
 	if (center)
 		return (new SDL_Point{ pos.w / 2, pos.h / 2 });

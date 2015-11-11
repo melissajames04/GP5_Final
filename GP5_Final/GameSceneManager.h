@@ -17,6 +17,7 @@ private:
 	static std::unique_ptr<GameSceneManager> instance;
 	friend std::default_delete < GameSceneManager >;
 
+
 public:
 	static GameSceneManager* getInstance();
 	//static unsigned int fps;
@@ -26,6 +27,7 @@ public:
 	bool isRunning;
 	void Render();
 	void InputManager(SDL_Event keyEvent);
+	int testmove;
 };
 
 

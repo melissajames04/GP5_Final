@@ -33,9 +33,12 @@ public:
 		double Angle,
 		bool Center,
 		SDL_RendererFlip Flip);
-		//void Draw();
 		void Draw(const DrawParams& Params) const;
-	//void Draw(SDL_Renderer* renderer, SDL_Surface* surface);
+		void SetBlendMode(const SDL_BlendMode blend);
+		int GetHeight();
+		int GetWidth();
+		void Animate(int x, int y, float scale, SDL_Rect* Clip, double Angle, bool Center, SDL_RendererFlip Flip,  int frameCount, int margin);
+		void Animate(const DrawParams& Params,  int frameCount, int margin);
 
 private:
 	SDL_Surface* loadedAsset;
@@ -43,6 +46,9 @@ private:
 	SDL_Point* SetOrigin(bool center, SDL_Rect* Clip);
 	SDL_Texture* createdTexture;
 	SDL_Renderer* renderer;
+	int Width, Height;
+	int frameCount;
+	int previousFrame;
 };
 
 #endif
