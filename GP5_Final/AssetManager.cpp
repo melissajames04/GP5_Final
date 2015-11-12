@@ -95,7 +95,6 @@ void AssetManager::Animate(const DrawParams& Params,  int frameCount, int margin
 							0,
 							(Width / frameCount) * Params.scale,
 							Height * Params.scale };
-	std::cout << DrawRect.x << "\n";
 		previousFrame = previousFrame + 1;
 		SDL_RenderCopyEx(renderer, createdTexture, &DrawRect, &ClipRect, Params.Angle, Params.origin, Params.Flip);
 }

@@ -4,10 +4,13 @@
 #include "Timer.h"
 #include "GameObject.h"
 #include <thread>
+#include "Scene0.h"
+#include "Scene1.h"
 
-
-
-GameObject* ball;
+//GameObject* player;
+//GameObject* background;
+Scene* intro;
+Scene* level1;
 
 std::unique_ptr<GameSceneManager> GameSceneManager::instance(nullptr);
 GameSceneManager::GameSceneManager() : window(), isRunning(false), fps(10)
@@ -18,7 +21,7 @@ GameSceneManager::GameSceneManager() : window(), isRunning(false), fps(10)
 
 GameSceneManager::~GameSceneManager()
 {
-	window.Shutdown();
+	//window.Shutdown();
 	Debug::Log(EMessageType::INFO, "Hello from the destructor", __FILE__, __LINE__);
 }
 GameSceneManager* GameSceneManager::getInstance(){
@@ -33,14 +36,22 @@ void GameSceneManager::Run(){
 	Timer timer;
 	timer.Start();
 	Debug::Initialize();
-	ball = new GameObject();
+	//player = new GameObject();
+	//background = new GameObject();
 	SDL_SetRenderDrawBlendMode(window.GetRenderer(), SDL_BLENDMODE_BLEND);
-	ball->loadImage(window.GetRenderer(),"guy_walk_spritesheet.png");
-	//std::thread eventPoll(Update, 10);
+	//background->loadImage(window.GetRenderer(), "background.png");
+	//player->loadImage(window.GetRenderer(),"guy_walk_spritesheet.png");
+	//intro = new Scene0(window.GetRenderer());
+	intro = new Scene0(window); 
+	level1 = new Scene1(window);
+	intro->OnCreate();
+	level1->OnCreate();
 	while (isRunning){
 		timer.UpdateFrameTicks();
-		Update(timer.GetDeltaTime());
-		Render();
+		//Update(timer.GetDeltaTime());
+		//Render();
+		//intro->Update(timer.GetDeltaTime());
+		level1->Update(timer.GetDeltaTime());
 		SDL_Delay(timer.GetSleepTime(fps));
 	}
 
@@ -78,7 +89,8 @@ void GameSceneManager::Update(const float deltaTime){
 void GameSceneManager::Render(){
 	SDL_RenderClear(window.GetRenderer());
 	SDL_FreeSurface(window.getSurface());
-	ball->Animate(testmove, window.GetHeight() - 100, 1.0f, NULL, 0.0f, true, SDL_FLIP_NONE, 8, 0);
+	//background->Draw(0, 0, 1.0f, NULL, 0.0f, false, SDL_FLIP_NONE);
+	//player->Animate(testmove, window.GetHeight() - 100, 1.0f, NULL, 0.0f, true, SDL_FLIP_NONE, 8, 0);
 	SDL_RenderPresent(window.GetRenderer());
 }
 
@@ -86,8 +98,10 @@ void GameSceneManager::InputManager(SDL_Event keyEvent){
 	switch (keyEvent.key.keysym.sym){
 	case SDLK_q:
 		isRunning = false;
-		ball = nullptr;
-		delete ball;
+		//player = nullptr;
+		//background = nullptr;
+		//delete player;
+		//delete background;
 		SDL_Quit();
 		exit(0);
 		break;

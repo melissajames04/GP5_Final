@@ -37,13 +37,14 @@ bool Window::Initialize(){
 }
 
 void Window::Shutdown(){
-	SDL_FreeSurface(SDLSurface);
-	SDLSurface = nullptr;
-	SDL_DestroyRenderer(SDLRenderer);
-	SDLRenderer = nullptr;
-	SDL_DestroyWindow(SDLWindow);
-	SDLWindow = nullptr;
-	isInitialized = false;
+	printf("window shutdown");
+		//SDL_FreeSurface(SDLSurface);
+		SDLSurface = nullptr;
+		SDL_DestroyRenderer(SDLRenderer);
+		SDLRenderer = nullptr;
+		SDL_DestroyWindow(SDLWindow);
+		SDLWindow = nullptr;
+		isInitialized = false;
 }
 
 void Window::SetWindowSize(const int width_, const int height_){

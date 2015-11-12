@@ -78,7 +78,9 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameSceneManager.h" />
     <ClInclude Include="Music.h" />
-    <ClInclude Include="Texture.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="Scene0.h" />
+    <ClInclude Include="Scene1.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Vec3.h" />
     <ClInclude Include="VMath.h" />
@@ -92,7 +94,9 @@
     <ClCompile Include="GameSceneManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Music.cpp" />
-    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Scene0.cpp" />
+    <ClCompile Include="Scene1.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
