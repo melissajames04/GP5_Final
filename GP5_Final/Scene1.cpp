@@ -41,7 +41,7 @@ void Scene1::Render() const{
 	SDL_FreeSurface(window->getSurface());
 	//Draw the scene:
 	background->Draw(0, 0, 1.0f, NULL, 0.0f, false, SDL_FLIP_NONE);
-	player->Animate(testmove, window->GetHeight() - 100, 1.0f, NULL, 0.0f, true, SDL_FLIP_NONE, 8, 0);
+	player->Animate(testmove, window->GetHeight() - 100,1.0f, NULL, 0.0f, true, SDL_FLIP_NONE, 8);
 	SDL_RenderPresent(window->GetRenderer());
 }
 
@@ -58,3 +58,5 @@ void Scene1::InputManager(){
 		}
 	}
 }
+
+

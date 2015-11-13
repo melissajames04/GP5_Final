@@ -35,13 +35,14 @@ public:
 		SDL_RendererFlip Flip);
 		void Draw(const DrawParams& Params) const;
 		void SetBlendMode(const SDL_BlendMode blend);
-		int GetHeight();
-		int GetWidth();
-		void Animate(int x, int y, float scale, SDL_Rect* Clip, double Angle, bool Center, SDL_RendererFlip Flip,  int frameCount, int margin);
-		void Animate(const DrawParams& Params,  int frameCount, int margin);
-
+		void SetAlpha(const Uint8 A);
+		void SetColor(const SDL_Color& SDLColor);
+		void SetColor(const Uint8 r, const Uint8 g, const Uint8 b, const Uint8 a);
+		int GetHeight() const;
+		int GetWidth() const;
+		void Animate(int x, int y, float scale, SDL_Rect* Clip, double Angle, bool Center, SDL_RendererFlip Flip,  int frameCount);
 private:
-	SDL_Surface* loadedAsset;
+	void Animate(const DrawParams& Params, int frameCount);
 	SDL_Rect DrawRect;
 	SDL_Point* SetOrigin(bool center, SDL_Rect* Clip);
 	SDL_Texture* createdTexture;

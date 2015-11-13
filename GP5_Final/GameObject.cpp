@@ -31,10 +31,10 @@ void GameObject::Draw(int x, int y, float scale, SDL_Rect* Clip, double Angle, b
 	asset->Draw(pos.x, pos.y, scale, &pos, Angle, Center, Flip);
 }
 
-void GameObject::Animate(int x, int y, float scale, SDL_Rect* Clip, double Angle, bool Center, SDL_RendererFlip Flip, int frameCount, int margin){
+void GameObject::Animate(int x, int y, float scale, SDL_Rect* Clip, double Angle, bool Center, SDL_RendererFlip Flip, int frameCount){
 	anim = true;
 	pos = { x, y, asset->GetWidth(), asset->GetHeight() };
-	asset->Animate(pos.x, pos.y, scale, &pos, Angle, Center, Flip, frameCount, margin );
+	asset->Animate(pos.x, pos.y, scale, &pos, Angle, Center, Flip, frameCount );
 }
 SDL_Point* GameObject::GetOrigin(bool center){
 	if (center)

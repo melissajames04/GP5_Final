@@ -6,6 +6,7 @@
 #include <thread>
 #include "Scene0.h"
 #include "Scene1.h"
+#include "InputManager.h"
 
 //GameObject* player;
 //GameObject* background;
