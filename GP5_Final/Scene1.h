@@ -3,7 +3,10 @@
 
 #include "Scene.h"
 #include "Window.h"
-
+enum class Action : int {
+	LEFT = 1,
+	RIGHT
+};
 class Scene1 : public Scene
 {
 public:
@@ -20,7 +23,9 @@ public:
 	virtual void Render() const;
 	void InputManager();
 
-	int testmove;
+private:
+	int moveX, speedX;
+	SDL_RendererFlip Flip;
 };
 
 #endif

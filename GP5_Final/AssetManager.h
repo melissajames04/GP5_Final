@@ -33,7 +33,6 @@ public:
 		double Angle,
 		bool Center,
 		SDL_RendererFlip Flip);
-		void Draw(const DrawParams& Params) const;
 		void SetBlendMode(const SDL_BlendMode blend);
 		void SetAlpha(const Uint8 A);
 		void SetColor(const SDL_Color& SDLColor);
@@ -42,6 +41,7 @@ public:
 		int GetWidth() const;
 		void Animate(int x, int y, float scale, SDL_Rect* Clip, double Angle, bool Center, SDL_RendererFlip Flip,  int frameCount);
 private:
+	void Draw(const DrawParams& Params) const;
 	void Animate(const DrawParams& Params, int frameCount);
 	SDL_Rect DrawRect;
 	SDL_Point* SetOrigin(bool center, SDL_Rect* Clip);
