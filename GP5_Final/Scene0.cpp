@@ -15,10 +15,13 @@ bool Scene0::OnCreate(){
 	//Models for this scene
 	//Music
 	splashScreen = new GameObject();
-	splashScreen->loadImage(window->GetRenderer(), "limbo_title.bmp");
 	InputManager::initialize((int)Action::TOTAL - 1);
 	InputManager::bind(SDLK_RETURN, (int)Action::ENTER);
 	InputManager::bind(SDLK_q, (int)Action::QUIT);
+	if (!splashScreen->loadImage(window->GetRenderer(), "limbo_title.bmp"))
+		return false;
+	else
+		return true;
 	return true;
 }
 

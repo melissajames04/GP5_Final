@@ -78,12 +78,13 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameSceneManager.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="Matrix.h" />
     <ClInclude Include="Music.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Scene0.h" />
     <ClInclude Include="Scene1.h" />
     <ClInclude Include="Timer.h" />
-    <ClInclude Include="Vec3.h" />
+    <ClInclude Include="Vector.h" />
     <ClInclude Include="VMath.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>

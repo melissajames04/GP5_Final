@@ -13,11 +13,14 @@ GameObject::~GameObject(){
 	//loadedImage = NULL;
 }
 
-void GameObject::loadImage(SDL_Renderer* renderer,const std::string& imageName){
+bool GameObject::loadImage(SDL_Renderer* renderer,const std::string& imageName){
 	asset = new AssetManager();
-	asset->LoadAsset(renderer, imageName.c_str());
-	asset->SetBlendMode(SDL_BLENDMODE_BLEND);
-	//SetRect();
+	if (!asset->LoadAsset(renderer, imageName.c_str())){
+		return false;
+		asset->SetBlendMode(SDL_BLENDMODE_BLEND);
+	}
+	else
+		return true;
 }
 
 int GameObject::getHeight(){

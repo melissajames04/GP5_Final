@@ -19,15 +19,18 @@ bool Scene1::OnCreate(){
 	player = new GameObject();
 	background = new GameObject();
 	background2 = new GameObject();
-	background->loadImage(window->GetRenderer(), "background.png");
-	background2->loadImage(window->GetRenderer(), "background.png");
-	player->loadImage(window->GetRenderer(), "guy_walk_spritesheet.png");
-	screenX2 = background->getWidth();
 	InputManager::initialize((int)Action::TOTAL - 1);
 	InputManager::bind(SDLK_RIGHT, (int)Action::RIGHT);
 	InputManager::bind(SDLK_LEFT, (int)Action::LEFT);
 	InputManager::bind(SDLK_q, (int)Action::QUIT);
-	return true;
+	if (!background->loadImage(window->GetRenderer(), "background.png") ||
+		!background2->loadImage(window->GetRenderer(), "background.png") ||
+		!player->loadImage(window->GetRenderer(), "guy_walk_spritesheet.png")){
+		return false;
+		screenX2 = background->getWidth();
+	}
+	else
+		return true;
 }
 
 void Scene1::OnDestroy(){

@@ -11,7 +11,7 @@ public:
 	SDL_Texture* loadTX;
 	SDL_Surface* loadedImage;
 	SDL_Rect pos;
-	void loadImage(SDL_Renderer* renderer, const std::string& imageName);
+	bool loadImage(SDL_Renderer* renderer, const std::string& imageName);
 	Texture* objTexture;
 	AssetManager* asset;
 	SDL_Point* GetOrigin(bool center);
