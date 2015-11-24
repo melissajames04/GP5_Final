@@ -20,6 +20,13 @@ void GameObject::loadImage(SDL_Renderer* renderer,const std::string& imageName){
 	//SetRect();
 }
 
+int GameObject::getHeight(){
+	return asset->GetHeight();
+}
+
+int GameObject::getWidth(){
+	return asset->GetWidth();
+}
 
 void GameObject::SetRect(){
 	pos.x = pos.y = 100;

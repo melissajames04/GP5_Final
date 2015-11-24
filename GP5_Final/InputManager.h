@@ -10,6 +10,7 @@ class InputManager{
 public:
 	static int Update();
 	static void bind(SDL_Keycode key, int func);
+	static void clearBinds();
 	static int KeyEventHandler(SDL_Keycode key);
 	static void initialize(int keyCount);
 	static int mover;

@@ -1,7 +1,6 @@
 #include "InputManager.h"
 #include <vector>
 #include "SDL.h"
-#include "Scene1.h"
 struct keyBind{
 	int name;
 	SDL_Keycode key;
@@ -15,6 +14,9 @@ void InputManager::initialize(int keyCount){
 void InputManager::bind(SDL_Keycode key, int func){
 	keyBind _kb = keyBind{ func, key};
 	boundKeys.push_back(_kb);
+}
+void InputManager::clearBinds(){
+	boundKeys.clear();
 }
 int InputManager::Update(){
 	SDL_Event SDLEvent;

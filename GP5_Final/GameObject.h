@@ -17,7 +17,8 @@ public:
 	SDL_Point* GetOrigin(bool center);
 	void Draw(int x, int y, float scale, SDL_Rect* Clip, double Angle, bool Center, SDL_RendererFlip Flip);
 	void Animate(int x, int y, float scale, SDL_Rect* Clip, double Angle, bool Center, SDL_RendererFlip Flip,  int frameCount);
-
+	int getHeight();
+	int getWidth();
 private:
 	SDL_Point* origin;
 	void SetRect();

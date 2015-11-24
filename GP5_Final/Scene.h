@@ -3,7 +3,8 @@
 
 #include "SDL.h"
 #include "Window.h"
-
+#include "InputManager.h"
+#include "GameSceneManager.h"
 class Scene
 {
 public:

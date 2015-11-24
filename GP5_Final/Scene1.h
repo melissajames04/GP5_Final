@@ -3,12 +3,16 @@
 
 #include "Scene.h"
 #include "Window.h"
-enum class Action : int {
-	LEFT = 1,
-	RIGHT
-};
+
 class Scene1 : public Scene
 {
+	enum class Action : int {
+		LEFT = 1,
+		RIGHT,
+		JUMP,
+		QUIT,
+		TOTAL
+	};
 public:
 	explicit Scene1(class Window& windowRef);
 	virtual ~Scene1();
@@ -25,7 +29,10 @@ public:
 
 private:
 	int moveX, speedX;
+	int screenX, screenMoveX, screenX2;
+	void scrollCheck();
 	SDL_RendererFlip Flip;
+	bool scroll;
 };
 
 #endif

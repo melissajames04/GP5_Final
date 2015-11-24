@@ -8,21 +8,18 @@
 #include "Scene1.h"
 #include "InputManager.h"
 
-//GameObject* player;
-//GameObject* background;
-Scene* intro;
-Scene* level1;
-
+Scene* currentLevel;
+//Scene* level1;
+int GameSceneManager::level = 0;
 std::unique_ptr<GameSceneManager> GameSceneManager::instance(nullptr);
 GameSceneManager::GameSceneManager() : window(), isRunning(false), fps(10)
 {
 	Debug::Log(EMessageType::INFO, "Hello fomr the constructor", __FILE__, __LINE__);
 }
 
-
 GameSceneManager::~GameSceneManager()
 {
-	//window.Shutdown();
+	window.Shutdown();
 	Debug::Log(EMessageType::INFO, "Hello from the destructor", __FILE__, __LINE__);
 }
 GameSceneManager* GameSceneManager::getInstance(){
@@ -37,22 +34,10 @@ void GameSceneManager::Run(){
 	Timer timer;
 	timer.Start();
 	Debug::Initialize();
-	//player = new GameObject();
-	//background = new GameObject();
 	SDL_SetRenderDrawBlendMode(window.GetRenderer(), SDL_BLENDMODE_BLEND);
-	//background->loadImage(window.GetRenderer(), "background.png");
-	//player->loadImage(window.GetRenderer(),"guy_walk_spritesheet.png");
-	//intro = new Scene0(window.GetRenderer());
-	intro = new Scene0(window); 
-	level1 = new Scene1(window);
-	intro->OnCreate();
-	level1->OnCreate();
 	while (isRunning){
 		timer.UpdateFrameTicks();
-		//Update(timer.GetDeltaTime());
-		//Render();
-		//intro->Update(timer.GetDeltaTime());
-		level1->Update(timer.GetDeltaTime());
+		Update(timer.GetDeltaTime());
 		SDL_Delay(timer.GetSleepTime(fps));
 	}
 
@@ -65,54 +50,37 @@ bool GameSceneManager::Initialize(){
 		return false;
 	}
 	else{
+		level = (int)GameState::INTRO;
+		LoadLevel();
 		return true;
 	}
 }
 
+void GameSceneManager::LoadLevel(){
+	switch (level){
+	case ((int)GameState::INTRO) :
+		currentLevel = new Scene0(window);
+		levelLoaded = level;
+		break;
+	case((int)GameState::LEVEL1) :
+		currentLevel->OnDestroy();
+		InputManager::clearBinds();
+		currentLevel = new Scene1(window);
+		levelLoaded = level;
+		break;
+	}
+	currentLevel->OnCreate();
+}
 void GameSceneManager::Update(const float deltaTime){
-	SDL_Event SDLEvent;
-	while (SDL_PollEvent(&SDLEvent)){
-		switch (SDLEvent.type){
-		case SDL_EventType::SDL_QUIT:
-			exit(0);
-			return;
-			break;
-		case SDL_EventType::SDL_KEYDOWN:
-			InputManager(SDLEvent);
-			break;
-		default:
-			return;
-			break;
-		}
-	}
+	if (level != levelLoaded)
+		LoadLevel();
+	Render(deltaTime);
 }
 
-void GameSceneManager::Render(){
-	SDL_RenderClear(window.GetRenderer());
-	SDL_FreeSurface(window.getSurface());
-	//background->Draw(0, 0, 1.0f, NULL, 0.0f, false, SDL_FLIP_NONE);
-	//player->Animate(testmove, window.GetHeight() - 100, 1.0f, NULL, 0.0f, true, SDL_FLIP_NONE, 8, 0);
-	SDL_RenderPresent(window.GetRenderer());
+void GameSceneManager::Render(const float deltaTime){
+	currentLevel->Update(deltaTime);
 }
 
-void GameSceneManager::InputManager(SDL_Event keyEvent){
-	switch (keyEvent.key.keysym.sym){
-	case SDLK_q:
-		isRunning = false;
-		//player = nullptr;
-		//background = nullptr;
-		//delete player;
-		//delete background;
-		SDL_Quit();
-		exit(0);
-		break;
-	case SDLK_RIGHT:
-		testmove+=10;
-		break;
-	default:
-		break;
-	}
-}
 
 
 

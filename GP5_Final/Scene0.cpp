@@ -16,6 +16,9 @@ bool Scene0::OnCreate(){
 	//Music
 	splashScreen = new GameObject();
 	splashScreen->loadImage(window->GetRenderer(), "limbo_title.bmp");
+	InputManager::initialize((int)Action::TOTAL - 1);
+	InputManager::bind(SDLK_RETURN, (int)Action::ENTER);
+	InputManager::bind(SDLK_q, (int)Action::QUIT);
 	return true;
 }
 
@@ -26,6 +29,7 @@ void Scene0::OnDestroy(){
 }
 
 void Scene0::Update(const float deltaTime){
+	InputManager();
 		Render();
 }
 
@@ -37,3 +41,17 @@ void Scene0::Render() const{
 	SDL_RenderPresent(window->GetRenderer());
 }
 
+void Scene0::InputManager(){
+	int action = InputManager::Update();
+	switch (action){
+	case (int)Action::ENTER:
+		GameSceneManager::level = 1;
+		break;
+	case(int)Action::QUIT:
+		SDL_Quit();
+		exit(0);
+		break;
+	default:
+		break;
+	}
+}

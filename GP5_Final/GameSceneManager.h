@@ -2,7 +2,10 @@
 #include <memory>
 #include <thread>
 #include "Window.h"
-
+enum class GameState : int {
+	INTRO = 0,
+	LEVEL1
+};
 class GameSceneManager
 {
 private:
@@ -25,9 +28,11 @@ public:
 	bool Initialize();
 	void Update(const float deltaTime);
 	bool isRunning;
-	void Render();
-	void InputManager(SDL_Event keyEvent);
+	void Render(const float deltaTime);
 	int testmove;
+	void LoadLevel();
+	static int level;
+	int levelLoaded;
 };
 
 
