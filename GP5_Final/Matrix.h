@@ -1,8 +1,9 @@
 #pragma once
 #include <stdio.h>	/// Needed for the printf statement, could have used cin and cout but I have issues.  
 #include "Vector.h"
+
 namespace  MATH {
-	/// These are the default vectors of the eye (camera) according to OpenGL
+	/// These are the default vectors of the eye (camera) according to OpenGL and the right hand rule
 	///								+Y	 -Z
 	///	                             |  /
 	///   origin(0.0f,0.0f,0.0f);    | /
@@ -43,18 +44,6 @@ namespace  MATH {
 		}
 
 
-
-		/*** ///My friend Rohan's constructor - I love it, it works, I don't like it. Come ask me about it
-		inline Matrix(	float x0, float y0,	float z0, float w0,
-		float x1, float y1,	float z1, float w1,
-		float x2, float y2,	float z2, float w2,
-		float x3, float y3, float z3, float w3 ) {
-		m[0] = x0;   m[4] = y0;   m[8] = z0; m[12] = w0;
-		m[1] = x1;   m[5] = y1;   m[9] = z1; m[13] = w1;
-		m[2] = x2;   m[6] = y2;   m[10]= z2; m[14] = w2;
-		m[3] = x3;	 m[7] = y3;   m[11]= z3; m[15] = w3;
-		}
-		***/
 
 
 		inline Matrix4(float x0, float x1, float x2, float x3,

@@ -5,6 +5,7 @@
 #include "Window.h"
 #include "InputManager.h"
 #include "GameSceneManager.h"
+#include "MMath.h"
 class Scene
 {
 public:

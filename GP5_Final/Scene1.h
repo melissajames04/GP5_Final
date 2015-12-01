@@ -4,6 +4,8 @@
 #include "Scene.h"
 #include "Window.h"
 
+using namespace MATH;
+
 class Scene1 : public Scene
 {
 	enum class Action : int {
@@ -28,11 +30,15 @@ public:
 	void InputManager();
 
 private:
-	int moveX, speedX;
+	float moveX, speedX;
 	int screenX, screenMoveX, screenX2;
 	void scrollCheck();
 	SDL_RendererFlip Flip;
 	bool scroll;
+
+protected:
+	Matrix4 projection;
+
 };
 
 #endif

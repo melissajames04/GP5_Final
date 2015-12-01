@@ -1,6 +1,7 @@
 #include "Scene1.h"
 #include "GameObject.h"
 #include <iostream>
+
 GameObject* player;
 GameObject* background;
 GameObject* background2;
@@ -16,6 +17,10 @@ bool Scene1::OnCreate(){
 	//SoundEffects
 	//Models for this scene
 	//Music
+	Matrix4 ndc = MMath::viewportNDC(window->GetWidth(), window->GetHeight());
+	Matrix4 ortho = MMath::orthographic(0.0f, 10.0f, 0.0f, 8.0f, 0.0f, 10.0f);
+	projection = ortho * ndc;
+
 	player = new GameObject();
 	background = new GameObject();
 	background2 = new GameObject();
@@ -27,10 +32,11 @@ bool Scene1::OnCreate(){
 		!background2->loadImage(window->GetRenderer(), "background.png") ||
 		!player->loadImage(window->GetRenderer(), "guy_walk_spritesheet.png")){
 		return false;
-		screenX2 = background->getWidth();
 	}
-	else
+	else{
+		screenX2 = background->getWidth();
 		return true;
+	}
 }
 
 void Scene1::OnDestroy(){
@@ -44,6 +50,7 @@ void Scene1::OnDestroy(){
 }
 
 void Scene1::Update(const float deltaTime){
+
 	InputManager();
 	moveX += speedX;
 	screenX += screenMoveX;
@@ -54,17 +61,18 @@ void Scene1::Update(const float deltaTime){
 }
 
 void Scene1::Render() const{
+	Vec3 screenCoords = projection * Vec3(moveX, 1.5f, 0);
 	window->ClearRenderer();
 	SDL_FreeSurface(window->getSurface());
 	//Draw the scene:
 	background->Draw(screenX, 0, 1.0f, NULL, 0.0f, false, SDL_FLIP_NONE);
 	background2->Draw(screenX2 , 0, 1.0f, NULL, 0.0f, false, SDL_FLIP_HORIZONTAL);
-	player->Animate(moveX, window->GetHeight() - 100,1.0f, NULL, 0.0f, true, Flip, 8);
+	player->Animate(screenCoords.x, screenCoords.y,1.0f, NULL, 0.0f, true, Flip, 8);
 	SDL_RenderPresent(window->GetRenderer());
 }
 
 void Scene1::scrollCheck(){
-	if (moveX > window->GetHeight() / 2 && scroll)
+	if (player->pos.x > window->GetHeight() / 2 && scroll)
 		screenMoveX = -10;
 	else
 		screenMoveX = 0;
@@ -82,7 +90,7 @@ void Scene1::InputManager(){
 	case (int)Action::LEFT:
 		scroll = false;
 		Flip = SDL_FLIP_HORIZONTAL;
-		speedX = -10;
+		speedX = -0.2f;
 		break;
 	case(int)Action::RIGHT:
 		Flip = SDL_FLIP_NONE;
@@ -92,7 +100,7 @@ void Scene1::InputManager(){
 		}
 		else{
 			scroll = false;
-			speedX = 10;
+			speedX = 0.2f;
 		}
 		break;
 	case(int)Action::QUIT:
