@@ -25,6 +25,8 @@ int InputManager::Update(){
 			exit(0);
 		if (SDLEvent.type == SDL_KEYDOWN)
 			return KeyEventHandler(SDLEvent.key.keysym.sym);
+		if (SDLEvent.type == SDL_KEYUP)
+			return -1;
 		if (SDLEvent.type == SDL_MOUSEBUTTONDOWN)
 			return 0;
 	}

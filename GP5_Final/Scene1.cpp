@@ -6,7 +6,7 @@ GameObject* player;
 GameObject* background;
 GameObject* background2;
 
-Scene1::Scene1(Window& windowRef) : Scene(windowRef), moveX(0), speedX(0), screenX(0), screenX2(0), screenMoveX(0), Flip(SDL_FLIP_NONE), scroll(false){
+Scene1::Scene1(Window& windowRef) : Scene(windowRef), moveX(0), moveY(1.5f), speedY(0), speedX(0), screenX(0), screenX2(0), screenMoveX(0), Flip(SDL_FLIP_NONE), scroll(false){
 }
 Scene1::~Scene1(){}
 
@@ -27,6 +27,7 @@ bool Scene1::OnCreate(){
 	InputManager::initialize((int)Action::TOTAL - 1);
 	InputManager::bind(SDLK_RIGHT, (int)Action::RIGHT);
 	InputManager::bind(SDLK_LEFT, (int)Action::LEFT);
+	InputManager::bind(SDLK_SPACE, (int)Action::JUMP);
 	InputManager::bind(SDLK_q, (int)Action::QUIT);
 	if (!background->loadImage(window->GetRenderer(), "background.png") ||
 		!background2->loadImage(window->GetRenderer(), "background.png") ||
@@ -53,6 +54,24 @@ void Scene1::Update(const float deltaTime){
 
 	InputManager();
 	moveX += speedX;
+	if (canJump){
+		if (moveY < 2.0f && !hitPeak)
+			speedY = 0.5f;
+		else if (moveY > 2.0f){
+			hitPeak = true;
+			speedY = -0.5f;
+		}
+		else if (hitPeak){
+			speedY = -0.5f;
+			if (moveY <= 1.5f){
+				canJump = false;
+				speedY = 0;
+			}
+			
+		}
+	}
+
+	moveY += speedY;
 	screenX += screenMoveX;
 	screenX2 += screenMoveX;
 	scrollCheck();
@@ -61,7 +80,7 @@ void Scene1::Update(const float deltaTime){
 }
 
 void Scene1::Render() const{
-	Vec3 screenCoords = projection * Vec3(moveX, 1.5f, 0);
+	Vec3 screenCoords = projection * Vec3(moveX, moveY, 0);
 	window->ClearRenderer();
 	SDL_FreeSurface(window->getSurface());
 	//Draw the scene:
@@ -86,13 +105,13 @@ void Scene1::scrollCheck(){
 void Scene1::InputManager(){
 	int action = InputManager::Update();
 	string temp = string("right");
-	switch (action){
-	case (int)Action::LEFT:
+	//switch (action){
+	if (action == (int)Action::LEFT){
 		scroll = false;
 		Flip = SDL_FLIP_HORIZONTAL;
 		speedX = -0.2f;
-		break;
-	case(int)Action::RIGHT:
+	}
+	if (action == (int)Action::RIGHT){
 		Flip = SDL_FLIP_NONE;
 		if (player->pos.x > window->GetWidth() / 2){
 			scroll = true;
@@ -102,16 +121,22 @@ void Scene1::InputManager(){
 			scroll = false;
 			speedX = 0.2f;
 		}
-		break;
-	case(int)Action::QUIT:
-		SDL_Quit();
-		exit(0);
-		break;
-	default:
+	}
+	if(action == -1){
 		speedX = 0;
 		scroll = false;
-		break;
 	}
+	if (action == (int)Action::JUMP){
+		canJump = true;
+		hitPeak = false;
+	}
+
+	if (action == (int)Action::QUIT){
+		SDL_Quit();
+		exit(0);
+	}
+	
+	//}
 }
 
 

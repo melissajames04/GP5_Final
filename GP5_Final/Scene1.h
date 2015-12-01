@@ -30,11 +30,11 @@ public:
 	void InputManager();
 
 private:
-	float moveX, speedX;
+	float moveX, moveY, speedX, speedY;
 	int screenX, screenMoveX, screenX2;
 	void scrollCheck();
 	SDL_RendererFlip Flip;
-	bool scroll;
+	bool scroll, canJump, hitPeak;
 
 protected:
 	Matrix4 projection;
