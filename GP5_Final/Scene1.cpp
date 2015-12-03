@@ -104,8 +104,6 @@ void Scene1::scrollCheck(){
 
 void Scene1::InputManager(){
 	int action = InputManager::Update();
-	string temp = string("right");
-	//switch (action){
 	if (action == (int)Action::LEFT){
 		scroll = false;
 		Flip = SDL_FLIP_HORIZONTAL;
@@ -135,8 +133,7 @@ void Scene1::InputManager(){
 		SDL_Quit();
 		exit(0);
 	}
-	
-	//}
+
 }
 
 

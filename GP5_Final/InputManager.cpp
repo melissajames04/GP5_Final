@@ -7,6 +7,7 @@ struct keyBind{
 };
 static std::vector<keyBind> boundKeys;
 int InputManager::mover = 0;
+static keyBind lastKey;
 
 void InputManager::initialize(int keyCount){
 	boundKeys.reserve(keyCount);
@@ -23,8 +24,12 @@ int InputManager::Update(){
 	while (SDL_PollEvent(&SDLEvent)){
 		if (SDLEvent.type == SDL_QUIT)
 			exit(0);
-		if (SDLEvent.type == SDL_KEYDOWN)
-			return KeyEventHandler(SDLEvent.key.keysym.sym);
+		if (SDLEvent.type == SDL_KEYDOWN){
+			if (lastKey.key == SDLEvent.key.keysym.sym)
+				return lastKey.name;
+			else
+				return KeyEventHandler(SDLEvent.key.keysym.sym);
+		}
 		if (SDLEvent.type == SDL_KEYUP)
 			return -1;
 		if (SDLEvent.type == SDL_MOUSEBUTTONDOWN)
@@ -34,7 +39,9 @@ int InputManager::Update(){
 
 int InputManager::KeyEventHandler(SDL_Keycode key){
 	for (auto &b : boundKeys) {
-		if (b.key == key)
+		if (b.key == key){
+			lastKey = b;
 			return b.name;
+		}
 	}
 }

@@ -20,7 +20,8 @@ public:
 	InputManager(InputManager&&) = delete;
 	InputManager& operator = (const InputManager&) = delete;
 	InputManager& operator = (InputManager&&) = delete;
-	
+	//static SDL_Keycode lastKey;
+	//static 
 	
 	
 };
