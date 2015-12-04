@@ -34,7 +34,7 @@ private:
 	int screenX, screenMoveX, screenX2;
 	void scrollCheck();
 	SDL_RendererFlip Flip;
-	bool scroll, canJump, hitPeak;
+	bool scroll, canJump, hitPeak, isGrounded;
 
 protected:
 	Matrix4 projection;
